@@ -5,5 +5,5 @@ dependencies {
  implementation project(':jevopt-core'); implementation project(':jevopt-security'); implementation project(':jevopt-scanner'); implementation project(':jevopt-detectors'); implementation project(':jevopt-report')
  implementation 'info.picocli:picocli:4.7.7'
  implementation 'org.xerial:sqlite-jdbc:3.53.4.0'
- runtimeOnly 'org.slf4j:slf4j-simple:2.0.17'
+ runtimeOnly 'org.slf4j:slf4j-simple:2.0.20'
 }
