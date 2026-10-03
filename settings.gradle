@@ -1,0 +1,5 @@
+rootProject.name = 'jevopt'
+include 'jevopt-core', 'jevopt-security', 'jevopt-scanner', 'jevopt-detectors', 'jevopt-report', 'jevopt-cli'
+include 'jevopt-traces', 'jevopt-shadow', 'jevopt-economics'
+include 'jevopt-jev', 'jevopt-patch'
+include 'jevopt-analyzers'
