@@ -1,0 +1,1 @@
+{"version":1,"eventId":"route-a","candidateId":"candidate-579174a3a185","timestampBucket":"2026-01-01","observedDecision":"search","observedModel":"synthetic-llm","inputTokens":100,"outputTokens":1,"latencyMs":800,"options":["search","browser"],"synthetic":true}

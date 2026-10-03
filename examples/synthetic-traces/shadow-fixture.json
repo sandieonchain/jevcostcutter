@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "evaluatorVersion": "fixture-v1",
+  "synthetic": true,
+  "results": [
+    {
+      "candidateId": "candidate-579174a3a185",
+      "eventId": "route-a",
+      "selectedValue": "search",
+      "probabilities": {
+        "search": "0.95",
+        "browser": "0.05"
+      },
+      "confidence": "0.95",
+      "inputTokens": 80,
+      "latencyMs": 80
+    },
+    {
+      "candidateId": "candidate-579174a3a185",
+      "eventId": "route-b",
+      "selectedValue": "search",
+      "probabilities": {
+        "search": "0.60",
+        "browser": "0.40"
+      },
+      "confidence": "0.60",
+      "inputTokens": 80,
+      "latencyMs": 90
+    },
+    {
+      "candidateId": "candidate-2cb3c19a6e63",
+      "eventId": "retry-a",
+      "selectedValue": "stop",
+      "probabilities": {
+        "retry": "0.01",
+        "stop": "0.99"
+      },
+      "confidence": "0.99",
+      "inputTokens": 80,
+      "latencyMs": 70
+    },
+    {
+      "candidateId": "candidate-5ff10625b215",
+      "eventId": "relevance-a",
+      "selectedValue": "true",
+      "probabilities": {
+        "true": "0.95",
+        "false": "0.05"
+      },
+      "confidence": null,
+      "inputTokens": 80,
+      "latencyMs": 60
+    }
+  ]
+}
+

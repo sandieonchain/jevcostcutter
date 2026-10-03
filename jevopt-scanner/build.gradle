@@ -1,0 +1,2 @@
+dependencies { api project(':jevopt-core'); implementation project(':jevopt-security') }
+

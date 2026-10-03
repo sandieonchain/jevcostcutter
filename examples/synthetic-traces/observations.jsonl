@@ -1,0 +1,5 @@
+{"version":1,"eventId":"route-a","candidateId":"candidate-579174a3a185","timestampBucket":"2026-01-01","observedDecision":"search","observedModel":"synthetic-llm","inputTokens":100,"outputTokens":1,"latencyMs":800,"options":["search","browser"],"synthetic":true}
+{"version":1,"eventId":"route-b","candidateId":"candidate-579174a3a185","timestampBucket":"2026-01-02","observedDecision":"browser","observedModel":"synthetic-llm","inputTokens":100,"outputTokens":1,"latencyMs":1000,"options":["search","browser"],"synthetic":true}
+{"version":1,"eventId":"retry-a","candidateId":"candidate-2cb3c19a6e63","timestampBucket":"2026-01-01","observedDecision":"stop","observedModel":"synthetic-llm","inputTokens":100,"outputTokens":1,"latencyMs":700,"options":["retry","stop"],"synthetic":true}
+{"version":1,"eventId":"relevance-a","candidateId":"candidate-5ff10625b215","timestampBucket":"2026-01-01","observedDecision":"true","observedModel":"synthetic-llm","inputTokens":100,"outputTokens":1,"latencyMs":600,"options":["true","false"],"synthetic":true}
+

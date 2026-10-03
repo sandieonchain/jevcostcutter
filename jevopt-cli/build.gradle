@@ -1,0 +1,9 @@
+plugins { id 'application' }
+application { mainClass = 'io.jevopt.cli.JevOpt'; applicationName = 'jevopt' }
+dependencies {
+ implementation project(':jevopt-traces'); implementation project(':jevopt-shadow'); implementation project(':jevopt-economics'); implementation project(':jevopt-jev'); implementation project(':jevopt-patch'); implementation project(':jevopt-analyzers')
+ implementation project(':jevopt-core'); implementation project(':jevopt-security'); implementation project(':jevopt-scanner'); implementation project(':jevopt-detectors'); implementation project(':jevopt-report')
+ implementation 'info.picocli:picocli:4.7.7'
+ implementation 'org.xerial:sqlite-jdbc:3.53.4.0'
+ runtimeOnly 'org.slf4j:slf4j-simple:2.0.17'
+}

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "id": "synthetic-pricing-v1",
+  "date": "2026-01-01",
+  "currency": "USD",
+  "synthetic": true,
+  "models": {
+    "synthetic-llm": {
+      "inputPerMillion": "2.00",
+      "outputPerMillion": "6.00"
+    }
+  },
+  "evaluatorInputPerMillion": {
+    "fixture-v1": "0.05"
+  },
+  "analyzerOverhead": "0.000100",
+  "shadowOverhead": "0.000016"
+}
+

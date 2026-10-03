@@ -1,0 +1,11 @@
+# Runtime evidence milestone design
+
+Trace files are explicit inputs, not instructions. Version 1 accepts only bounded categorical decisions, opaque event identifiers, candidate IDs, day buckets, model labels, token counts, latency and declared finite options. Unknown fields (including prompts, state, authorization and payloads) cause atomic rejection. All inputs have a 2 MB bound; records, labels and numeric ranges are bounded. Input paths use the same no-follow boundary as source. Event IDs are hashed, not persisted. Candidate fingerprints and primitive are resolved against a fresh static scan, never trusted from the trace.
+
+External initialized SQLite state receives transactional migrations through schema 4: sanitized samples, replay runs/outcomes and aggregate provider usage only. Source and trace input are never changed. SQLite storage is bounded; explicit purge removes runtime and provider-accounting rows while preserving configuration/schema. Purge is logical deletion, not a forensic erasure guarantee.
+
+`ShadowEvaluator` is a version-pinned SPI. The fixture implementation accepts synthetic test/demo data only. The real implementation accepts only approved non-synthetic trace-v3 evidence and sends one atomic request through the fixed-host, redirect-disabled, bounded Jev client pinned to `jev-1.13.0`. Choice/Score have confidence; Noul has a probability distribution and no separate confidence. Replay compares decisions but cannot control production. Fixtures cannot promote a migration recommendation.
+
+Reports distinguish active/stale evidence, replay coverage, finite-option coverage, confusion matrices, agreement, conditional accepted agreement, confidence buckets, Noul selected-probability buckets, abstention and component latency percentiles. Coverage is relative to imported data, not proof of production representativeness. Mixed candidates are reported separately.
+
+Pricing is a strict, versioned, dated, user-supplied snapshot. BigDecimal computes per-token estimates, projected component spend with LLM fallback, synthetic replay evaluation cost and optional analyzer/shadow overhead. Unknown prices/overheads remain null/unknown. No real billing, validated savings or end-to-end latency claims are made.

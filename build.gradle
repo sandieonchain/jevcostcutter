@@ -1,0 +1,50 @@
+allprojects { group = 'io.jevopt'; version = '1.0.0-rc1'; repositories { mavenCentral() } }
+apply plugin: 'base'
+import java.security.MessageDigest
+tasks.register('sbom') {
+    def output = layout.buildDirectory.file('reports/sbom/jevopt.cdx.json')
+    outputs.file(output)
+    doLast {
+        def components = [:]
+        subprojects.each { p ->
+            def ownPurl = "pkg:maven/${project.group}/${p.name}@${project.version}"
+            components[ownPurl] = [type:'library',group:project.group.toString(),name:p.name,version:project.version.toString(),purl:ownPurl]
+            def runtime = p.configurations.findByName('runtimeClasspath')
+            if (runtime != null && runtime.canBeResolved) runtime.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+                def id = artifact.moduleVersion.id
+                if (id.group && id.name && id.version) {
+                    def purl = "pkg:maven/${id.group}/${id.name}@${id.version}"
+                    def sha = MessageDigest.getInstance('SHA-256').digest(artifact.file.bytes).encodeHex().toString()
+                    components[purl] = [type:'library',group:id.group,name:id.name,version:id.version,purl:purl,hashes:[[alg:'SHA-256',content:sha]]]
+                }
+            }
+        }
+        output.get().asFile.parentFile.mkdirs()
+        output.get().asFile.text = groovy.json.JsonOutput.toJson([bomFormat:'CycloneDX',specVersion:'1.5',serialNumber:'urn:uuid:00000000-0000-0000-0000-000000000000',version:1,metadata:[component:[type:'application',group:project.group.toString(),name:'jevopt',version:project.version.toString(),purl:"pkg:maven/${project.group}/jevopt@${project.version}"]],components:components.values().sort { it.purl }]) + '\n'
+    }
+}
+tasks.register('checksums') {
+    dependsOn ':jevopt-cli:distZip', ':jevopt-cli:distTar', 'sbom'
+    def output = layout.buildDirectory.file('reports/checksums/SHA256SUMS')
+    outputs.file(output)
+    doLast {
+        def files = (fileTree('jevopt-cli/build/distributions').matching { include '*.zip'; include '*.tar' }.files + [layout.buildDirectory.file('reports/sbom/jevopt.cdx.json').get().asFile]).sort { a,b -> a.name <=> b.name }
+        output.get().asFile.parentFile.mkdirs()
+        output.get().asFile.text = files.collect { f -> MessageDigest.getInstance('SHA-256').digest(f.bytes).encodeHex().toString() + '  ' + f.name }.join('\n') + '\n'
+    }
+}
+subprojects {
+    apply plugin: 'java-library'
+    java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+    dependencies { testImplementation platform('org.junit:junit-bom:5.11.4'); testImplementation 'org.junit.jupiter:junit-jupiter'; testRuntimeOnly 'org.junit.platform:junit-platform-launcher' }
+    def scrubTestIdentity = tasks.register('scrubTestIdentity') {
+        doLast { fileTree(layout.buildDirectory).matching { include 'test-results/**/*.xml' }.each { report -> report.text = report.text.replaceAll(/hostname="[^"]*"/, 'hostname="anonymous"') } }
+    }
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+        testLogging { events 'passed', 'failed', 'skipped'; exceptionFormat 'short' }
+        // Gradle's JUnit XML otherwise embeds the build machine hostname. A finalizer also runs after failed tests.
+        finalizedBy scrubTestIdentity
+    }
+    tasks.withType(AbstractArchiveTask).configureEach { preserveFileTimestamps = false; reproducibleFileOrder = true }
+}

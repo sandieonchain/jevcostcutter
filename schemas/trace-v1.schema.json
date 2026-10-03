@@ -1,0 +1,72 @@
+{
+  "title": "JevOpt bounded runtime observation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "eventId",
+    "candidateId",
+    "timestampBucket",
+    "observedDecision",
+    "observedModel",
+    "inputTokens",
+    "outputTokens",
+    "latencyMs",
+    "options",
+    "synthetic"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "eventId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$"
+    },
+    "candidateId": {
+      "type": "string",
+      "pattern": "^candidate-[a-f0-9]{12}$"
+    },
+    "timestampBucket": {
+      "type": "string",
+      "format": "date"
+    },
+    "observedDecision": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$"
+    },
+    "observedModel": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$"
+    },
+    "inputTokens": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000
+    },
+    "outputTokens": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000
+    },
+    "latencyMs": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 86400000
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$"
+      }
+    },
+    "synthetic": {
+      "type": "boolean"
+    }
+  },
+  "description": "Additional Java policy enforces active candidate correlation, calendar dates, redaction-safe labels, observed membership, boolean Noul options, ordered Score levels and stable options. Raw payload fields are prohibited."
+}
