@@ -1,5 +1,5 @@
 dependencies {
  api project(':jevopt-core')
  implementation project(':jevopt-security')
- implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
+ implementation 'com.fasterxml.jackson.core:jackson-databind:2.22.3'
 }
