@@ -11,7 +11,7 @@ prove them with evidence, and get a review-only patch that keeps the LLM as fall
 ![Version](https://img.shields.io/badge/version-1.0.0--rc1-1f6feb?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
 ![Gradle](https://img.shields.io/badge/Gradle-8.14.3-02303A?style=flat-square&logo=gradle&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-92_passing-2ea043?style=flat-square)
+![build](https://github.com/sandieonchain/jevcostcutter/actions/workflows/build.yml/badge.svg)
 ![Reproducible](https://img.shields.io/badge/build-reproducible-2ea043?style=flat-square)
 ![SBOM](https://img.shields.io/badge/SBOM-CycloneDX_1.5-4c1?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
